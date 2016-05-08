@@ -34,13 +34,15 @@ public class Launcher {
 
             //recebe opção selecionada pelo usuário para determinar
             //seu privilégio no sistema
+            User user = new User();
             switch (answer) {
                 //
                 //****************************
                 //inicio das opções de gerente
                 case 1:
-                    boolean gerenteLogado = true;
-                    while (gerenteLogado) {
+                    user.setRole("GERENTE");
+                    user.Authenticate();
+                    while (user.isAuthenticated()) {
                         System.out.println("**********************");
                         System.out.println("");
                         System.out.println("1 - Adicionar produto");
@@ -50,16 +52,15 @@ public class Launcher {
                         int gerente_options = in.nextInt();
                         switch (gerente_options) {
                             case 1:
-                                User user = new User();
-                                user.setRole("GERENTE");
-                                if(user.isAuthenticated()){
-                                    GerenciadorEstoque manager = new GerenciadorEstoque();
-                                    manager.AdicionarProduto();
-                                    manager.ExibirEstoque();
-                                }
+                                if(user.getRole().equals("GERENTE")){
+                                //GERENTE - Adicionar produto    
+                                GerenciadorEstoque manager = new GerenciadorEstoque();
+                                manager.AdicionarProduto();
+                                manager.ExibirEstoque();
                                 break;
+                                }
                             case 0:
-                                gerenteLogado = false;
+                                user.LogOff();
                                 break;
                         }
                     }
@@ -70,6 +71,31 @@ public class Launcher {
                 //*************************************    
                 //inicio das opções de operador de caixa    
                 case 2:
+                    user.setRole("OPERADOR");
+                    user.Authenticate();
+                    Operador operador = new Operador();
+                    operador.requireName();
+                    while (user.isAuthenticated() && !operador.getNome().equals("")) {
+                        System.out.println("**********************");
+                        System.out.println("");
+                        System.out.println("1 - Remover produto");
+                        System.out.println("0 - Logout como Operador");
+                        System.out.println("");
+                        System.out.println("**********************");
+                        int operador_options = in.nextInt();
+                        switch (operador_options) {
+                            case 1:
+                                if(user.getRole().equals("OPERADOR")){
+                                GerenciadorEstoque manager = new GerenciadorEstoque();
+                                manager.removerProduto();
+                                manager.ExibirEstoque();
+                                break;
+                                }
+                            case 0:
+                                user.LogOff();
+                                break;
+                        }
+                    }
                     break;
                 //fim das operações de operador de caixa
                 //**************************************

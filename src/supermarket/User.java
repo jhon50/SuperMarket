@@ -25,12 +25,6 @@ public class User{
 
     public void setRole(String role) {
         this.role = role;
-        if(role.equals("GERENTE")){
-            authenticated = true;
-        }
-        if(role.equals("OPERADOR")){
-            authenticated = true;
-        }
     }
     public String getRole(){
         return role;

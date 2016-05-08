@@ -20,4 +20,8 @@ public class Produto {
         this.nome = nome;
         this.valor = valor;
     }
+    
+    public int getCodigo(){
+        return this.codigo;
+    }
 }

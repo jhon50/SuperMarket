@@ -28,6 +28,16 @@ public class GerenciadorEstoque extends Estoque {
         Produto produto = new Produto(codigo, nome, valor);
         produtos.add(produto);
     }
+     public void removerProduto(){
+         System.out.print("Digite o código do produto a ser removido: ");
+         int codigo = in.nextInt();
+         for (int i = 0; i < produtos.size(); i++) {
+              Produto testador = produtos.get(i);
+              if(codigo == testador.getCodigo()){
+                  produtos.remove(i);
+              }
+         }
+     }
      public void ExibirEstoque(){
         System.out.println(produtos);
     }

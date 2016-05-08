@@ -5,9 +5,28 @@
  */
 package supermarket;
 
+import java.util.Scanner;
+
 /**
  *
  * @author pj
  */
 public class Operador{
+    private String nome;
+    Scanner in = new Scanner(System.in);
+    
+    public Operador(){
+    }
+    
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+    public String getNome(){
+        return nome;
+    }
+
+    public void requireName() {
+        System.out.print("Operador, digite seu nome para iniciar sessão: ");
+        nome = in.nextLine();
+    }
 }
