@@ -12,7 +12,9 @@ import java.util.Scanner;
  * @author pj
  */
 public class GerenciadorEstoque extends Estoque {
+    
     Scanner in = new Scanner(System.in);
+    
      public void AdicionarProduto() {
         System.out.println("Insira as informações do produto que deseja adicionar");
         
@@ -38,8 +40,18 @@ public class GerenciadorEstoque extends Estoque {
               }
          }
      }
+     
      public void ExibirEstoque(){
-        System.out.println(produtos);
+         produtos.stream().forEach((item) -> {
+             System.out.println("========================"+"\n"+
+                     "Código: "+ item.getCodigo()+"\n"+
+                             "Nome: "+ item.getNome()+"\n"+
+                             "Valor: "+ item.getValor()+"\n"+
+                     "========================"
+             );
+        });
     }
+     
+    
     
 }

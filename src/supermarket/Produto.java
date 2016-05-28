@@ -24,4 +24,12 @@ public class Produto {
     public int getCodigo(){
         return this.codigo;
     }
+    
+    public String getNome(){
+        return this.nome;
+    }    
+   
+    public double getValor(){
+        return this.valor;
+    }
 }

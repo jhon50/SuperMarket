@@ -5,12 +5,12 @@
  */
 package supermarket;
 
-import java.util.Scanner;
-
 /**
  *
  * @author pj
  */
-public class Operador extends User{
-   
+public final class Roles {
+    private Roles() {};
+    public static final String GERENTE = "GERENTE";
+    public static final String OPERADOR = "OPERADOR";
 }
