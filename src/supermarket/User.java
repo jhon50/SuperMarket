@@ -58,8 +58,8 @@ public class User {
             }
             else
             {
-                System.out.println("Senha Incorreta!\nDeseja tentar novamente? (y/n) ");
-                if (in.nextLine().equals("n")){ break; }
+                System.out.print("Senha Incorreta!\nDeseja tentar novamente? (y/n) ");
+                if(in.nextLine().equals("n")) break;
             }
         }
     }

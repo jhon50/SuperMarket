@@ -5,6 +5,9 @@
  */
 package supermarket;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 /**
  *
@@ -14,8 +17,11 @@ public class SuperMarket {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
         // TODO code application logic here
         Launcher.start();
     }

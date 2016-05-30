@@ -5,11 +5,13 @@
  */
 package supermarket;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pj
  */
-public class Venda{
+public class Venda {
     
     //
     //Produto que foi vendido
@@ -19,16 +21,25 @@ public class Venda{
     //Usuário que realizou a venda
     private User user;
     
-    public Venda (Produto produto, User user){
+    //
+    //Id do caixa no qual a venda foi realizada
+    private int idCaixa;
+    
+    public Venda (Produto produto, User user, int idCaixa){
         this.produto = produto;
         this.user = user;
+        this.idCaixa = idCaixa;
     }
     
-    public Produto getProduto(){
-        return this.produto;
+    public String getNomeProduto(){
+        return produto.getNome();
     }
     
     public String getVendedor(){
-        return this.user.getNome();
+        return user.getNome();
+    }
+    
+    public int getIdCaixa(){
+        return idCaixa;
     }
 }
