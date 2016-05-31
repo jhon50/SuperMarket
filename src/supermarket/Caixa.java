@@ -85,13 +85,13 @@ class Caixa {
         return this.id;
     }
 
-    public void adicionarProduto() throws IOException, FileNotFoundException, ClassNotFoundException {
+    public void adicionarProduto() {
         estoque.read();
         estoque.AdicionarProduto();
         estoque.save();
     }
 
-    public void registrarVenda() throws IOException, FileNotFoundException, ClassNotFoundException {
+    public void registrarVenda() {
         estoque.read();
         boolean registrandoVendas = true;
         int codigo;
@@ -131,7 +131,7 @@ class Caixa {
         });
     }
 
-    public void ExibirProdutosEstoque() throws IOException, FileNotFoundException, ClassNotFoundException {
+    public void ExibirProdutosEstoque() {
         estoque.read();
         estoque.ExibirEstoque();
     }

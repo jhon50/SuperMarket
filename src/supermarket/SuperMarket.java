@@ -21,7 +21,7 @@ public class SuperMarket {
      * @throws java.io.FileNotFoundException
      * @throws java.lang.ClassNotFoundException
      */
-    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
+    public static void main(String[] args) {
         // TODO code application logic here
         Launcher.start();
     }

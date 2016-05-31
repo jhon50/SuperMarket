@@ -26,24 +26,37 @@ public class Estoque {
     public static ArrayList<Produto> produtos = new ArrayList();
 
     FileOutputStream fos;
-    
+
     String fileName = "estoque";
-    
-    
-    public void save() throws FileNotFoundException, IOException {
-        FileOutputStream fout = new FileOutputStream(fileName);
-        ObjectOutputStream oos = new ObjectOutputStream(fout);
-        oos.writeObject(produtos);
-        fout.close();
+
+    public void save() {
+        try {
+            FileOutputStream fout = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(produtos);
+            fout.close();
+
+        }catch(FileNotFoundException ex){
+            System.out.println("Arquivo não encontrado!");
+        }catch(IOException ex){
+            System.out.println("Erro ao tentar abrir o arquivo.");
+        }
     }
 
-    
-    
-    public void read() throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fin = new FileInputStream(fileName);
-        ObjectInputStream ois = new ObjectInputStream(fin);
-        produtos = (ArrayList<Produto>) ois.readObject();
-        fin.close();
+    public void read() {
+        try {
+            FileInputStream fin = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            produtos = (ArrayList<Produto>) ois.readObject();
+            fin.close();
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException ex) {
+
+        } catch (ClassNotFoundException ex) {
+
+        }
+
     }
 
 }
