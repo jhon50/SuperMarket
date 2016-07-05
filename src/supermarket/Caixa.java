@@ -14,7 +14,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
-import static supermarket.Estoque.produtos;
 import static supermarket.GerenciadorCaixas.CAIXAS;
 
 /**
@@ -86,13 +85,10 @@ class Caixa {
     }
 
     public void adicionarProduto() {
-        estoque.read();
         estoque.AdicionarProduto();
-        estoque.save();
     }
 
     public void registrarVenda() {
-        estoque.read();
         boolean registrandoVendas = true;
         int codigo;
         do {
@@ -119,7 +115,6 @@ class Caixa {
                 registrandoVendas = false;
             }
         } while (registrandoVendas);
-        estoque.save();
     }
 
     public void ExibirVendas() {

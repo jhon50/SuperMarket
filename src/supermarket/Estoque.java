@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import static java.lang.System.in;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 public class Estoque {
 
     public static ArrayList<Produto> produtos = new ArrayList();
+    Scanner in = new Scanner(System.in);
 
     FileOutputStream fos;
 
@@ -36,9 +38,9 @@ public class Estoque {
             oos.writeObject(produtos);
             fout.close();
 
-        }catch(FileNotFoundException ex){
+        } catch (FileNotFoundException ex) {
             System.out.println("Arquivo não encontrado!");
-        }catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println("Erro ao tentar abrir o arquivo.");
         }
     }
@@ -57,6 +59,83 @@ public class Estoque {
 
         }
 
+    }
+
+    public void AdicionarProduto() {
+        Estoque estoque = new Estoque();
+        estoque.read();
+
+        System.out.println("Insira as informações do produto que deseja adicionar");
+
+        System.out.print("Insira o código: ");
+        int codigo = in.nextInt();
+
+        System.out.print("Insira o Nome: ");
+        String nome = in.next();
+
+        System.out.print("Insira o valor: ");
+        double valor = in.nextDouble();
+
+        System.out.print("Insira a quantidade: ");
+        int quantidade = in.nextInt();
+
+        boolean present = verificaExistencia(codigo, produtos);
+        Produto produto = new Produto(codigo, nome, valor, quantidade);
+        if(present){
+            for (int i = 0; i < produtos.size(); i++) {
+                if(produtos.get(i).getCodigo() == codigo){
+                    int amountBefore = produtos.get(i).getQuantidade();
+                    int newAmount = amountBefore + quantidade;
+                    produto.setQuantidade(newAmount);
+                    produtos.set(i, produto);
+                }
+            }
+        }else{
+            produtos.add(produto);
+        }
+        estoque.save();
+
+    }
+
+    public Produto removerProduto(int codigo) {
+        Estoque estoque = new Estoque();
+        estoque.read();
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto candidato = produtos.get(i);
+            if (candidato.getCodigo() == codigo) {
+                if (candidato.getQuantidade() > 0) {
+                    candidato.diminuiQuantidade();
+                    //retorna o produto que foi removido
+                    estoque.save();
+                    return candidato;
+                }
+            }
+        }
+        //Neste ponto o produto não foi encontrado 
+        return null;
+    }
+
+    public void ExibirEstoque() {
+        System.out.println("Produtos no estoque: ");
+        System.out.println("========================");
+        produtos.stream().forEach((item) -> {
+            System.out.println(
+                    "Código: " + item.getCodigo() + "   "
+                    + "Nome: " + item.getNome() + "   "
+                    + "Valor: " + item.getValor() + "  "
+                    + "Quantidade: " + item.getQuantidade()
+            );
+        });
+        System.out.println("========================\n");
+    }
+
+    private boolean verificaExistencia(int codigo, ArrayList<Produto> produtos) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if(produtos.get(i).getCodigo() == codigo){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
