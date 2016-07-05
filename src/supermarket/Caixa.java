@@ -127,7 +127,6 @@ class Caixa {
     }
 
     public void ExibirProdutosEstoque() {
-        estoque.read();
         estoque.ExibirEstoque();
     }
 

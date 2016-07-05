@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class Estoque {
 
-    public static ArrayList<Produto> produtos = new ArrayList();
+    ArrayList<Produto> produtos = new ArrayList();
     Scanner in = new Scanner(System.in);
 
     FileOutputStream fos;
@@ -62,8 +62,7 @@ public class Estoque {
     }
 
     public void AdicionarProduto() {
-        Estoque estoque = new Estoque();
-        estoque.read();
+        read();
 
         System.out.println("Insira as informações do produto que deseja adicionar");
 
@@ -88,12 +87,14 @@ public class Estoque {
                     int newAmount = amountBefore + quantidade;
                     produto.setQuantidade(newAmount);
                     produtos.set(i, produto);
+                    save();
                 }
             }
         }else{
             produtos.add(produto);
+            save();
         }
-        estoque.save();
+        
 
     }
 
@@ -116,6 +117,7 @@ public class Estoque {
     }
 
     public void ExibirEstoque() {
+        read();
         System.out.println("Produtos no estoque: ");
         System.out.println("========================");
         produtos.stream().forEach((item) -> {
