@@ -31,14 +31,14 @@ public class GerenciadorCaixas {
      //falta incluir o total da venda
     public void ExibirRelatorioVendas() {
         System.out.println("Relatório de vendas: ");
-        System.out.println("========================"); 
         CAIXAS.stream().forEach((item) -> {
-          
+          System.out.println("========================"); 
                 System.out.println("Caixa: " + item.getIdCaixa());
+                System.out.println("Operador: " + item.getUser().getNome());
                 item.ExibirVendas();
                 System.out.println();
-           
+           System.out.println("========================");
         });
-        System.out.println("========================");
+        
     }
 }

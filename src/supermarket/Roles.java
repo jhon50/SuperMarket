@@ -13,4 +13,5 @@ public final class Roles {
     private Roles() {};
     public static final String GERENTE = "GERENTE";
     public static final String OPERADOR = "OPERADOR";
+    public static final String CLIENTE = "CLIENTE";
 }

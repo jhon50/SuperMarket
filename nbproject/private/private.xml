@@ -4,10 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/supermarket/src/supermarket/Launcher.java</file>
+            <file>file:/C:/supermarket/src/supermarket/Venda.java</file>
             <file>file:/C:/supermarket/src/supermarket/Estoque.java</file>
+            <file>file:/C:/supermarket/src/supermarket/GerenciadorEstoque.java</file>
             <file>file:/C:/supermarket/src/supermarket/SuperMarket.java</file>
             <file>file:/C:/supermarket/src/supermarket/Caixa.java</file>
             <file>file:/C:/supermarket/src/supermarket/Produto.java</file>
+            <file>file:/C:/supermarket/src/supermarket/GerenciadorCaixas.java</file>
         </group>
     </open-files>
 </project-private>

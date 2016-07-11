@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import static java.lang.System.in;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,18 +25,22 @@ import java.util.logging.Logger;
  */
 public class Estoque {
 
-    ArrayList<Produto> produtos = new ArrayList();
+    private List<Produto> estoque = new ArrayList();
     Scanner in = new Scanner(System.in);
 
     FileOutputStream fos;
 
     String fileName = "estoque";
+    
+    public List<Produto> getEstoque(){
+        return estoque;
+    }
 
     public void save() {
         try {
             FileOutputStream fout = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(produtos);
+            oos.writeObject(estoque);
             fout.close();
 
         } catch (FileNotFoundException ex) {
@@ -49,7 +54,7 @@ public class Estoque {
         try {
             FileInputStream fin = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fin);
-            produtos = (ArrayList<Produto>) ois.readObject();
+            estoque = (ArrayList<Produto>) ois.readObject();
             fin.close();
         } catch (FileNotFoundException ex) {
 
@@ -78,36 +83,33 @@ public class Estoque {
         System.out.print("Insira a quantidade: ");
         int quantidade = in.nextInt();
 
-        boolean present = verificaExistencia(codigo, produtos);
+        boolean present = verificaExistencia(codigo);
         Produto produto = new Produto(codigo, nome, valor, quantidade);
         if(present){
-            for (int i = 0; i < produtos.size(); i++) {
-                if(produtos.get(i).getCodigo() == codigo){
-                    int amountBefore = produtos.get(i).getQuantidade();
+            for (int i = 0; i < estoque.size(); i++) {
+                if(estoque.get(i).getCodigo() == codigo){
+                    int amountBefore = estoque.get(i).getQuantidade();
                     int newAmount = amountBefore + quantidade;
                     produto.setQuantidade(newAmount);
-                    produtos.set(i, produto);
+                    estoque.set(i, produto);
                     save();
                 }
             }
         }else{
-            produtos.add(produto);
+            estoque.add(produto);
             save();
         }
-        
-
     }
 
     public Produto removerProduto(int codigo) {
-        Estoque estoque = new Estoque();
-        estoque.read();
-        for (int i = 0; i < produtos.size(); i++) {
-            Produto candidato = produtos.get(i);
+        read();
+        for (int i = 0; i < estoque.size(); i++) {
+            Produto candidato = estoque.get(i);
             if (candidato.getCodigo() == codigo) {
                 if (candidato.getQuantidade() > 0) {
                     candidato.diminuiQuantidade();
                     //retorna o produto que foi removido
-                    estoque.save();
+                    save();
                     return candidato;
                 }
             }
@@ -120,7 +122,7 @@ public class Estoque {
         read();
         System.out.println("Produtos no estoque: ");
         System.out.println("========================");
-        produtos.stream().forEach((item) -> {
+        estoque.stream().forEach((item) -> {
             System.out.println(
                     "Código: " + item.getCodigo() + "   "
                     + "Nome: " + item.getNome() + "   "
@@ -130,10 +132,19 @@ public class Estoque {
         });
         System.out.println("========================\n");
     }
+    
+    public Produto getProduto(int codigo){
+        for (int i = 0; i < estoque.size(); i++) {
+            if(estoque.get(i).getCodigo() == codigo){
+                return estoque.get(i);
+            }
+        }
+        return null;
+    }
 
-    private boolean verificaExistencia(int codigo, ArrayList<Produto> produtos) {
-        for (int i = 0; i < produtos.size(); i++) {
-            if(produtos.get(i).getCodigo() == codigo){
+    public boolean verificaExistencia(int codigo) {
+        for (int i = 0; i < estoque.size(); i++) {
+            if(estoque.get(i).getCodigo() == codigo){
                 return true;
             }
         }

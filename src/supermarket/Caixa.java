@@ -38,7 +38,7 @@ class Caixa {
 
     //
     //Lista de todas as vendas que foram realizadas
-    private static ArrayList<Venda> VENDAS = new ArrayList();
+    private ArrayList<Venda> VENDAS = new ArrayList();
 
     //
     //Retorna se o usuário está logado
@@ -84,12 +84,18 @@ class Caixa {
         return this.id;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
     public void adicionarProduto() {
         estoque.AdicionarProduto();
     }
 
     public void registrarVenda() {
         boolean registrandoVendas = true;
+        double preco = 0;
+        double troco = 0;
         int codigo;
         do {
 
@@ -98,13 +104,11 @@ class Caixa {
 
             //Tenta remover produto do estoque e retorna o produto removido
             Produto produto = estoque.removerProduto(codigo);
-
-            //Se o produto estiver nulo, ele nao foi encontrado no estoque
-            //possivelmente acabou ou não foi registrado pelo gerente
             if (produto != null) {
-                Venda venda = new Venda(produto, user, id);
+                Venda venda = new Venda(produto, id);
                 //registra a venda
                 VENDAS.add(venda);
+                preco += produto.getValor();
             } else {
                 System.out.println("Produto não encontrado!");
             }
@@ -114,20 +118,50 @@ class Caixa {
             if (in.next().equals("n")) {
                 registrandoVendas = false;
             }
+
+            //Se o produto estiver nulo, ele nao foi encontrado no estoque
+            //possivelmente acabou ou não foi registrado pelo gerente
         } while (registrandoVendas);
+        System.out.println("O valor total é de: " + preco);
+        System.out.println("1 - Pagamento com cartão \n2 - Pagamento com dinheiro");
+        int x = in.nextInt();
+        switch (x) {
+            case 1:
+                pagamentoCartao(preco);
+                break;
+            case 2:
+                troco = pagamentoDinheiro(preco);
+                System.out.println("O seu troco é de: " + troco);
+        }
     }
 
     public void ExibirVendas() {
-        VENDAS.stream().forEach((item) -> {
+        double  total = 0;
+        for (int i = 0; i < VENDAS.size(); i++) {
             System.out.println(
-                    "Vendedor: " + item.getVendedor() + "     "
-                    + "Produto: " + item.getNomeProduto() + "    "
+                    "Produto: " + VENDAS.get(i).getNomeProduto()+ " " + VENDAS.get(i).getPrecoProduto() + "    "
             );
-        });
+            total += VENDAS.get(i).getPrecoProduto();
+        }
+        System.out.println("Total da venda: " + total);
     }
 
     public void ExibirProdutosEstoque() {
         estoque.ExibirEstoque();
     }
 
+    public void pagamentoCartao(double preco) {
+        System.out.println("1 - Visa  \n2 - Master");
+        int x = in.nextInt();
+        System.out.println("Digite a senha do cartão.");
+        String senha = in.next();
+        System.out.println("Transação aprovada.");
+    }
+
+    private double pagamentoDinheiro(double preco) {
+        System.out.println("Digite total de dinheiro recebido.");
+        double total = in.nextDouble();
+        double troco = total - preco;
+        return troco;
+    }
 }

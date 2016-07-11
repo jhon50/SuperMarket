@@ -18,16 +18,11 @@ public class Venda {
     private Produto produto;
     
     //
-    //Usuário que realizou a venda
-    private User user;
-    
-    //
     //Id do caixa no qual a venda foi realizada
     private int idCaixa;
     
-    public Venda (Produto produto, User user, int idCaixa){
+    public Venda (Produto produto, int idCaixa){
         this.produto = produto;
-        this.user = user;
         this.idCaixa = idCaixa;
     }
     
@@ -35,8 +30,8 @@ public class Venda {
         return produto.getNome();
     }
     
-    public String getVendedor(){
-        return user.getNome();
+    public double getPrecoProduto(){
+        return produto.getValor();
     }
     
     public int getIdCaixa(){
